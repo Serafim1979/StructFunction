@@ -1,34 +1,54 @@
 #include<iostream>
+#include<cmath>
 
 using std::cout;
 using std::cin;
 using std::endl;
-/////////////////////////////////////////////////////////
-unsigned int c_int_str(const char * str, char ch);
-/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+struct polar
+{
+	double distance;
+	double angle;
+};
+//////////////////////////////////////////////////////////////////
+struct rect
+{
+	double x;
+	double y;
+};
+///////////////////////////////////////////////////////////////////
+polar rect_to_polar(rect xypos);
+void show_polar(polar dapos);
+///////////////////////////////////////////////////////////////////
 int main()
 {
-	char mmm[15] = "minimum";
+	rect rplace;
+	polar pplace;
+	cout << "Enter the X and Y values: ";
 
-	const char *wail = "uluiate";
-	unsigned int ms = c_int_str(mmm, 'm');
-	unsigned int us = c_int_str(wail, 'u');
-
-	cout << ms << " m characters in " << mmm << endl;
-	cout << us << " u characters in " << wail << endl;
-
+	while (cin >> rplace.x >> rplace.y)
+	{
+		pplace = rect_to_polar(rplace);
+		show_polar(pplace);
+		cout << "Next two numbers (q to quit): ";
+	}
+	cout << "Done.\n";
 	system("pause");
 	return 0;
 }
-/////////////////////////////////////////////////////////
-unsigned int c_int_str(const char * str, char ch)
+///////////////////////////////////////////////////////////////////
+polar rect_to_polar(rect xypos)
 {
-	unsigned int count = 0;
-	while (*str)
-	{
-		if (*str == ch)
-			count++;
-		str++;
-	}
-	return count;
+	polar answer;
+	answer.distance = sqrt(xypos.x * xypos.x + xypos.y * xypos.y);
+	answer.angle = atan2(xypos.y, xypos.y);
+	return answer;
+}
+////////////////////////////////////////////////////////////////////
+void show_polar(polar dapos)
+{
+	const double Rad_to_deg = 57.29577951;
+	cout << "distance = " << dapos.distance;
+	cout << ", angle = " << dapos.angle * Rad_to_deg;
+	cout << " degrees\n";
 }
